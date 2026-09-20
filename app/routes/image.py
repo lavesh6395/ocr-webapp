@@ -9,7 +9,7 @@ from app.services.ocr_engine import ocr_service
 
 router = APIRouter(prefix="/ocr", tags=["OCR"])
 
-UPLOAD_DIR = Path("uploads")
+from app.config import UPLOAD_DIR
 UPLOAD_DIR.mkdir(exist_ok=True)
 
 

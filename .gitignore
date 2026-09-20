@@ -216,3 +216,11 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Runtime files
+uploads/
+processed/
+
+# Python cache
+__pycache__/
+*.pyc

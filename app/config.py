@@ -17,6 +17,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 UPLOAD_DIR = BASE_DIR / "uploads"
 UPLOAD_DIR.mkdir(exist_ok=True)
+# ---------- Processed Images ----------
+
+PROCESSED_DIR = BASE_DIR / "processed"
+PROCESSED_DIR.mkdir(exist_ok=True)
 
 MODEL_CACHE_DIR = BASE_DIR / "model_cache"
 MODEL_CACHE_DIR.mkdir(exist_ok=True)

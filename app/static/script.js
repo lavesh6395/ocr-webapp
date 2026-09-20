@@ -207,6 +207,11 @@ async function uploadImage() {
             signal: controller.signal
         });
 
+        console.log("Status:", response.status);
+        console.log("Response:", await response.clone().text());
+        
+        
+
         let data;
         try {
             data = await response.json();

@@ -1,99 +1,83 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Notebook-to-PDF AI</title>
-
-<link rel="stylesheet" href="/static/style.css">
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notebook-to-PDF AI</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 
 <body>
 
 <nav class="navbar">
-
-<div class="logo">Notebook-to-PDF AI</div>
-
-<div class="version">v{{ version }}</div>
-
+    <div class="logo">Notebook-to-PDF AI</div>
+    <div class="version">v{{ version }}</div>
 </nav>
 
 <main class="hero">
 
-<div class="hero-content">
+    <div class="hero-content">
 
-<h1>Turn Handwritten Notes into Searchable PDFs</h1>
+        <h1>Turn Handwritten Notes into Searchable PDFs</h1>
 
-<p>
+        <p>
+            Upload notebook pages, scanned documents, or printed papers.
+            AI-powered OCR will soon extract editable text while preserving formatting.
+        </p>
 
-Upload notebook pages, scanned documents, or printed papers.
+        <div class="upload-card">
 
-AI-powered OCR will soon extract editable text while preserving formatting.
+            <div id="drop-zone" class="drop-zone">
 
-</p>
+                <div class="upload-icon">☁️</div>
 
-<div class="upload-card">
+                <h3>Drag & Drop your image here</h3>
 
-<div id="drop-zone" class="drop-zone">
+                <p>PNG • JPG • JPEG</p>
 
-<div class="upload-icon">☁️</div>
+                <input type="file" id="file-input" accept="image/*" hidden>
 
-<h3>Drag & Drop your image here</h3>
+                <button id="browse-btn" class="secondary-btn">
+                    Browse Files
+                </button>
 
-<p>PNG • JPG • JPEG</p>
+            </div>
 
-<input type="file" id="file-input" accept="image/*" hidden>
+            <div id="preview-container" class="preview-container hidden">
 
-<button id="browse-btn" class="secondary-btn">
+                <img id="preview-image" alt="Preview">
 
-Browse Files
+                <p id="file-name"></p>
 
-</button>
+                <button id="extract-btn" class="primary-btn">
+                    Extract Text
+                </button>
 
-</div>
+                <div id="result-container" class="result-container hidden">
 
-<div id="preview-container" class="preview-container hidden">
+                    <h3>Extracted Text</h3>
 
-<img id="preview-image" alt="Preview">
+                    <pre id="ocr-result"></pre>
 
-<p id="file-name"></p>
+                    <button id="copy-btn" class="secondary-btn">
+                        Copy Text
+                    </button>
 
-<button id="extract-btn" class="primary-btn">
+                </div>
 
-<div id="result-container" class="result-container hidden">
+            </div>
 
-<h3>Extracted Text</h3>
+        </div>
 
-<pre id="ocr-result"></pre>
-
-<button id="copy-btn" class="secondary-btn">
-Copy Text
-</button>
-
-</div>  
-  
-  
-Extract Text
-
-</button>
-
-</div>
-
-</div>
-
-</div>
+    </div>
 
 </main>
 
+<footer>
+    Built with FastAPI • Render • Future-ready for Cloud Run & Mobile
 </footer>
 
 <script src="/static/script.js"></script>
 
 </body>
-
 </html>

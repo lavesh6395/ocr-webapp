@@ -1,14 +1,15 @@
-
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
-
-from app.routes.image import router as image_router
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
+from app.routes.image import router as image_router
+
+APP_VERSION = "0.2.0"
+
 app = FastAPI(
     title="OCR WebApp",
-    version="0.2.0",
+    version=APP_VERSION,
     description="Notebook-to-PDF AI"
 )
 
@@ -23,5 +24,5 @@ async def home(request: Request):
     return templates.TemplateResponse(
         request=request,
         name="index.html",
-        context={"version": "0.2.0"}
+        context={"version": APP_VERSION}
     )

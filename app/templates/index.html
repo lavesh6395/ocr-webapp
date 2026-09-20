@@ -22,7 +22,7 @@
 
         <p>
             Upload notebook pages, scanned documents, or printed papers.
-            AI-powered OCR will soon extract editable text while preserving formatting.
+            AI-powered OCR extracts editable text and generates searchable PDFs.
         </p>
 
         <div class="upload-card">
@@ -31,7 +31,7 @@
 
                 <div class="upload-icon">☁️</div>
 
-                <h3>Drag & Drop your image here</h3>
+                <h3>Drag & Drop your file here</h3>
 
                 <p>PNG • JPG • JPEG • PDF</p>
 
@@ -63,6 +63,10 @@
                         Copy Text
                     </button>
 
+                    <button id="download-btn" class="primary-btn hidden">
+                        Download Searchable PDF
+                    </button>
+
                 </div>
 
             </div>
@@ -74,7 +78,7 @@
 </main>
 
 <footer>
-    Built with FastAPI • Render • Future-ready for Cloud Run & Mobile
+    Powered by FastAPI • PaddleOCR • OpenCV • Oracle Cloud
 </footer>
 
 <script src="/static/script.js"></script>

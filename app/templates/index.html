@@ -37,19 +37,45 @@ AI-powered OCR will soon extract editable text while preserving formatting.
 
 </p>
 
-<button class="primary-btn" disabled>
+<div class="upload-card">
 
-Upload Coming Soon
+<div id="drop-zone" class="drop-zone">
+
+<div class="upload-icon">☁️</div>
+
+<h3>Drag & Drop your image here</h3>
+
+<p>PNG • JPG • JPEG</p>
+
+<input type="file" id="file-input" accept="image/*" hidden>
+
+<button id="browse-btn" class="secondary-btn">
+
+Browse Files
 
 </button>
 
 </div>
 
+<div id="preview-container" class="preview-container hidden">
+
+<img id="preview-image" alt="Preview">
+
+<p id="file-name"></p>
+
+<button id="extract-btn" class="primary-btn">
+
+Extract Text
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
 </main>
-
-<footer>
-
-Built with FastAPI • Render • Future-ready for Cloud Run & Mobile
 
 </footer>
 

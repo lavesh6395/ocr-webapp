@@ -1,71 +1,86 @@
-const dropZone=document.getElementById("drop-zone");
+const dropZone = document.getElementById("drop-zone");
+const fileInput = document.getElementById("file-input");
+const browseBtn = document.getElementById("browse-btn");
+const previewContainer = document.getElementById("preview-container");
+const previewImage = document.getElementById("preview-image");
+const fileName = document.getElementById("file-name");
+const extractBtn = document.getElementById("extract-btn");
 
-const fileInput=document.getElementById("file-input");
+// Stores whichever file the user selected
+let selectedFile = null;
 
-const browseBtn=document.getElementById("browse-btn");
+// Browse button
+browseBtn.addEventListener("click", () => fileInput.click());
 
-const previewContainer=document.getElementById("preview-container");
+// Clicking the drop zone also opens the file picker
+dropZone.addEventListener("click", () => fileInput.click());
 
-const previewImage=document.getElementById("preview-image");
-
-const fileName=document.getElementById("file-name");
-
-browseBtn.addEventListener("click",()=>{
-
-    fileInput.click();
-
+// File picker
+fileInput.addEventListener("change", (e) => {
+    selectedFile = e.target.files[0];
+    showPreview(selectedFile);
 });
 
-dropZone.addEventListener("click",()=>{
-
-    fileInput.click();
-
-});
-
-fileInput.addEventListener("change",handleFile);
-
-dropZone.addEventListener("dragover",(e)=>{
-
+// Drag events
+dropZone.addEventListener("dragover", (e) => {
     e.preventDefault();
-
-    dropZone.style.borderColor="#2563eb";
-
+    dropZone.style.borderColor = "#2563eb";
 });
 
-dropZone.addEventListener("dragleave",()=>{
-
-    dropZone.style.borderColor="#94a3b8";
-
+dropZone.addEventListener("dragleave", () => {
+    dropZone.style.borderColor = "#94a3b8";
 });
 
-dropZone.addEventListener("drop",(e)=>{
-
+// Drop
+dropZone.addEventListener("drop", (e) => {
     e.preventDefault();
+    dropZone.style.borderColor = "#94a3b8";
 
-    dropZone.style.borderColor="#94a3b8";
-
-    const file=e.dataTransfer.files[0];
-
-    showPreview(file);
-
+    selectedFile = e.dataTransfer.files[0];
+    showPreview(selectedFile);
 });
 
-function handleFile(e){
+// Preview
+function showPreview(file) {
+    if (!file) return;
 
-    const file=e.target.files[0];
-
-    showPreview(file);
-
+    fileName.textContent = file.name;
+    previewImage.src = URL.createObjectURL(file);
+    previewContainer.classList.remove("hidden");
 }
 
-function showPreview(file){
+// Upload
+extractBtn.addEventListener("click", uploadImage);
 
-    if(!file)return;
+async function uploadImage() {
 
-    fileName.textContent=file.name;
+    if (!selectedFile) {
+        alert("Please choose an image.");
+        return;
+    }
 
-    previewImage.src=URL.createObjectURL(file);
+    const formData = new FormData();
+    formData.append("file", selectedFile);
 
-    previewContainer.classList.remove("hidden");
+    extractBtn.textContent = "Uploading...";
+    extractBtn.disabled = true;
 
+    try {
+        const response = await fetch("/ocr/image", {
+            method: "POST",
+            body: formData
+        });
+
+        const data = await response.json();
+
+        alert(data.message);
+
+    } catch (error) {
+        alert("Upload failed. Please try again.");
+        console.error(error);
+
+    } finally {
+        extractBtn.textContent = "Extract Text";
+        extractBtn.disabled = false;
+    }
 }

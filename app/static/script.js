@@ -25,7 +25,7 @@ const ALLOWED_TYPES = [
     "application/pdf"
 ];
 const MAX_SIZE = 10 * 1024 * 1024; // 10 MB
-const REQUEST_TIMEOUT_MS = 60000; // 60 seconds
+const REQUEST_TIMEOUT_MS = 300000; // 60 seconds
 
 // ---------- State ----------
 

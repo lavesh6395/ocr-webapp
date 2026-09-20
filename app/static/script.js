@@ -52,35 +52,66 @@ function showPreview(file) {
 // Upload
 extractBtn.addEventListener("click", uploadImage);
 
-async function uploadImage() {
 
-    if (!selectedFile) {
+const resultContainer=document.getElementById("result-container");
+const ocrResult=document.getElementById("ocr-result");
+const copyBtn=document.getElementById("copy-btn");
+
+copyBtn.addEventListener("click",()=>{
+    navigator.clipboard.writeText(ocrResult.textContent);
+});
+
+async function uploadImage(){
+
+    if(!selectedFile){
+
         alert("Please choose an image.");
+
         return;
     }
 
-    const formData = new FormData();
-    formData.append("file", selectedFile);
+    const formData=new FormData();
 
-    extractBtn.textContent = "Uploading...";
-    extractBtn.disabled = true;
+    formData.append("file",selectedFile);
 
-    try {
-        const response = await fetch("/ocr/image", {
-            method: "POST",
-            body: formData
+    extractBtn.textContent="Uploading...";
+
+    extractBtn.disabled=true;
+
+    try{
+
+        const response=await fetch("/ocr/image",{
+
+            method:"POST",
+
+            body:formData
+
         });
 
-        const data = await response.json();
+        const data=await response.json();
 
-        alert(data.message);
+        if(data.success){
 
-    } catch (error) {
-        alert("Upload failed. Please try again.");
+            ocrResult.textContent=data.ocr.text;
+
+            resultContainer.classList.remove("hidden");
+
+        }else{
+
+            alert(data.message);
+        }
+
+    }catch(error){
+
+        alert("Upload failed.");
+
         console.error(error);
 
-    } finally {
-        extractBtn.textContent = "Extract Text";
-        extractBtn.disabled = false;
+    }finally{
+
+        extractBtn.textContent="Extract Text";
+
+        extractBtn.disabled=false;
     }
+}
 }

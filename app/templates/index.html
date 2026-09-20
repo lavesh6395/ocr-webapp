@@ -3,37 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notebook-to-PDF AI</title>
+    <title>Notebook-to-PDF AI — Convert Handwritten Notes to Searchable PDFs</title>
+    <meta name="description" content="AI-powered OCR that converts handwritten notebook pages, scanned documents, and PDFs into editable text and searchable PDFs. Preserves layout, equations, and diagrams.">
     <link rel="stylesheet" href="/static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-<nav class="navbar">
-    <div class="logo">Notebook-to-PDF AI</div>
-    <div class="version">v{{ version }}</div>
+<nav class="navbar" id="navbar">
+    <div class="logo">
+        <span class="logo-icon">📝</span>
+        Notebook-to-PDF AI
+    </div>
+    <div class="version-badge">v{{ version }}</div>
 </nav>
 
 <main class="hero">
 
     <div class="hero-content">
 
-        <h1>Turn Handwritten Notes into Searchable PDFs</h1>
+        <div class="hero-badge">AI-Powered OCR</div>
 
-        <p>
+        <h1>Turn Handwritten Notes into<br><span class="gradient-text">Searchable PDFs</span></h1>
+
+        <p class="hero-description">
             Upload notebook pages, scanned documents, or printed papers.
-            AI-powered OCR extracts editable text and generates searchable PDFs.
+            AI extracts editable text and generates searchable PDFs — with support
+            for handwriting, equations, and diagrams.
         </p>
 
-        <div class="upload-card">
+        <div class="upload-card" id="upload-card">
 
             <div id="drop-zone" class="drop-zone">
 
-                <div class="upload-icon">☁️</div>
+                <div class="upload-icon">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="17 8 12 3 7 8"/>
+                        <line x1="12" y1="3" x2="12" y2="15"/>
+                    </svg>
+                </div>
 
                 <h3>Drag & Drop your file here</h3>
 
-                <p>PNG • JPG • JPEG • PDF</p>
+                <p class="supported-formats">PNG • JPG • JPEG • PDF — up to 10 MB</p>
 
                 <input type="file" id="file-input" accept="image/*,.pdf" hidden>
 
@@ -43,29 +59,56 @@
 
             </div>
 
+            <!-- Preview Section -->
             <div id="preview-container" class="preview-container hidden">
 
-                <img id="preview-image" alt="Preview">
+                <img id="preview-image" alt="File preview">
 
                 <p id="file-name"></p>
 
                 <button id="extract-btn" class="primary-btn">
-                    Extract Text
+                    <span id="extract-btn-text">Extract Text</span>
                 </button>
 
+                <!-- Processing Steps -->
+                <div id="processing-card" class="processing-card hidden">
+                    <div class="processing-step" id="step-upload">
+                        <div class="step-indicator pending"></div>
+                        <span>Analyzing image type…</span>
+                    </div>
+                    <div class="processing-step" id="step-preprocess">
+                        <div class="step-indicator pending"></div>
+                        <span>Preprocessing for OCR…</span>
+                    </div>
+                    <div class="processing-step" id="step-ocr">
+                        <div class="step-indicator pending"></div>
+                        <span>Extracting text with AI…</span>
+                    </div>
+                    <div class="processing-step" id="step-pdf">
+                        <div class="step-indicator pending"></div>
+                        <span>Generating searchable PDF…</span>
+                    </div>
+                </div>
+
+                <!-- Results Section -->
                 <div id="result-container" class="result-container hidden">
 
-                    <h3>Extracted Text</h3>
+                    <div class="result-header">
+                        <h3>Extracted Text</h3>
+                        <span id="confidence-badge" class="confidence-badge"></span>
+                    </div>
 
                     <pre id="ocr-result"></pre>
 
-                    <button id="copy-btn" class="secondary-btn">
-                        Copy Text
-                    </button>
+                    <div class="result-actions">
+                        <button id="copy-btn" class="secondary-btn">
+                            📋 Copy Text
+                        </button>
 
-                    <button id="download-btn" class="primary-btn hidden">
-                        Download Searchable PDF
-                    </button>
+                        <button id="download-btn" class="primary-btn hidden">
+                            📄 Download Searchable PDF
+                        </button>
+                    </div>
 
                 </div>
 
@@ -78,7 +121,11 @@
 </main>
 
 <footer>
-    Powered by FastAPI • PaddleOCR • OpenCV • Oracle Cloud
+    <div class="footer-content">
+        <span>Powered by <strong>FastAPI</strong> • <strong>PaddleOCR</strong> • <strong>OpenCV</strong> • <strong>PyMuPDF</strong></span>
+        <span class="footer-divider">•</span>
+        <span>Deployed on <strong>Oracle Cloud</strong></span>
+    </div>
 </footer>
 
 <script src="/static/script.js"></script>

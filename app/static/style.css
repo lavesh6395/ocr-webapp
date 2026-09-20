@@ -210,6 +210,12 @@ body{
     color:#334155;
 }
 
+.drop-zone.dragover{
+    border-color:#2563eb;
+    background:#eff6ff;
+    transform:scale(1.01);
+}
+
 .spinner{
     width:18px;
     height:18px;

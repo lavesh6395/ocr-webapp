@@ -18,7 +18,12 @@ const copyBtn = document.getElementById("copy-btn");
 
 // ---------- Config ----------
 
-const ALLOWED_TYPES = ["image/png", "image/jpeg", "image/jpg"];
+const ALLOWED_TYPES = [
+    "image/png",
+    "image/jpeg",
+    "image/jpg",
+    "application/pdf"
+];
 const MAX_SIZE = 10 * 1024 * 1024; // 10 MB
 const REQUEST_TIMEOUT_MS = 60000; // 60 seconds
 
@@ -63,19 +68,29 @@ function setFile(file) {
     showPreview(file);
 }
 
-function showPreview(file) {
-    // Free the previous object URL to avoid memory leaks
-    if (previewUrl) URL.revokeObjectURL(previewUrl);
-    previewUrl = URL.createObjectURL(file);
+function showPreview(file){
 
-    fileName.textContent = file.name;
-    previewImage.src = previewUrl;
+    if(previewUrl) URL.revokeObjectURL(previewUrl);
+
+    previewUrl=URL.createObjectURL(file);
+
+    fileName.textContent=file.name;
 
     setResultText("");
+
+    if(file.type==="application/pdf"){
+
+        previewImage.src="/static/pdf-placeholder.png";
+
+    }else{
+
+        previewImage.src=previewUrl;
+    }
+
     previewContainer.classList.remove("hidden");
+
     resultContainer.classList.add("hidden");
 }
-
 // ---------- File Selection ----------
 
 // Browse button

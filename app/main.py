@@ -5,10 +5,10 @@ from fastapi.templating import Jinja2Templates
 
 from app.routes.image import router as image_router
 
-APP_VERSION = "0.2.0"
+from app.config import APP_NAME, APP_VERSION
 
 app = FastAPI(
-    title="OCR WebApp",
+    title=APP_NAME,
     version=APP_VERSION,
     description="Notebook-to-PDF AI"
 )
